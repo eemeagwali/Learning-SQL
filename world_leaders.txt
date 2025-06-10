@@ -390,3 +390,79 @@ GROUP BY release_year
 HAVING AVG(duration) > 120;
 
 
+Inner Join
+
+1--Basic SELECT from a single table
+
+SELECT *  
+FROM presidents;
+
+2--Inner Join using ON
+--Inner join of presidents and prime_ministers, joining on country  
+SELECT prime_ministers.country, prime_ministers.continent, prime_minister, president  
+FROM presidents  
+INNER JOIN prime_ministers  
+ON presidents.country = prime_ministers.country;
+
+3. Inner Join using Aliased Tables
+
+--Inner join of presidents and prime_ministers, joining on country  
+SELECT p2.country, p2.continent, prime_minister, president  
+FROM presidents AS p1 
+INNER JOIN prime_ministers AS p2  
+ON p1.country = p2.country;
+
+4. Inner Join using USING
+
+--Inner join of presidents and prime_ministers, joining on country 
+SELECT p2.country, p2.continent, prime_minister, president 
+FROM presidents AS p1 
+INNER JOIN prime_ministers AS p2 
+USING(country);
+
+5. Multiple Inner Joins
+
+SELECT * 
+FROM presidents 
+INNER JOIN prime_ministers 
+ON presidents.country = prime_ministers.country 
+INNER JOIN states 
+ON presidents.country = states.country;
+
+6. Join Example with USING
+
+SELECT p1.country, p1.continent,  
+       president, prime_minister 
+FROM prime_ministers AS p1 
+INNER JOIN presidents AS p2 
+USING(country);
+
+7. Chained Inner Joins with USING
+
+-- SQL query for chaining inner joins 
+SELECT  
+    p1.country,  
+    p1.continent,  
+    president,  
+    prime_minister,  
+    pm_start 
+FROM prime_ministers AS p1 
+INNER JOIN presidents AS p2 
+USING(country)  
+INNER JOIN prime_minister_terms AS p3 
+USING(prime_minister);
+
+8. Basic Inner Join
+
+SELECT *  
+FROM presidents 
+INNER JOIN prime_ministers
+ON presidents.country = prime_ministers.country;
+
+9. Join on Multiple Keys
+
+SELECT *  
+FROM presidents 
+INNER JOIN prime_ministers 
+ON presidents.country = prime_ministers.country
+    AND presidents.continent = prime_ministers.continent;
